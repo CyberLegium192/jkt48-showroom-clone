@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
+
+
+<!-- STREAMING VIDEO  -->
+<!-- <video ref={videoRef} controls width="640" height="360"></video> -->
+<!-- const videoRef = useRef(null);
+
+useEffect(() => {
+  const video = videoRef.current;
+  const videoUrl = "https://hls-css.live.showroom-live.com/live/dd307fdce52936f29dda76cb272f9df790fd88d877b034d3fdc5224dfc3f9d7b_l.m3u8";
+
+  if (video) {
+    if (Hls.isSupported()) {
+      const hls = new Hls();
+      hls.loadSource(videoUrl);
+      hls.attachMedia(video);
+
+      hls.on(Hls.Events.MANIFEST_PARSED, () => {
+        video.play();
+      });
+
+      return () => {
+        hls.destroy();
+      };
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = videoUrl;
+      video.addEventListener('loadedmetadata', () => {
+        video.play();
+      });
+    } else {
+      console.error('HLS is not supported in your browser');
+    }
+  }
+}, []); -->
+
+
+
+<!-- <html>
+ <head>
+  <title>
+   JKT48 Showroom
+  </title>
+  <script src="https://unpkg.com/react/umd/react.development.js">
+  </script>
+  <script src="https://unpkg.com/react-dom/umd/react-dom.development.js">
+  </script>
+  <script src="https://unpkg.com/@babel/standalone/babel.js">
+  </script>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <style>
+   body {
+            font-family: 'Arial', sans-serif;
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+        .sidebar {
+            background-color: #2c2c2c;
+            padding: 20px;
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+        }
+        .sidebar a {
+            color: #00bcd4;
+            display: block;
+            padding: 10px 0;
+            text-decoration: none;
+        }
+        .sidebar a:hover {
+            text-decoration: underline;
+        }
+        .content {
+            margin-left: 270px;
+            padding: 20px;
+        }
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background-color: #ffffff;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .search-bar input {
+            border: none;
+            outline: none;
+            flex-grow: 1;
+            margin-left: 10px;
+        }
+        .button-group button {
+            background-color: #00bcd4;
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            margin-left: 10px;
+        }
+        .button-group button:hover {
+            background-color: #0097a7;
+        }
+        .live-card, .theater-card {
+            background-color: #2c2c2c;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .live-card img, .theater-card img {
+            border-radius: 10px;
+        }
+        .live-card .info, .theater-card .info {
+            margin-left: 20px;
+        }
+        .live-card .info p, .theater-card .info p {
+            margin: 5px 0;
+        }
+        .live-card .info .views, .theater-card .info .views {
+            color: #00bcd4;
+        }
+        .live-card .info .time, .theater-card .info .time {
+            color: #ff5722;
+        }
+        .live-card .info .platform, .theater-card .info .platform {
+            color: #ffffff;
+        }
+        .live-card .info .name, .theater-card .info .name {
+            color: #00bcd4;
+        }
+        .live-card .info .time-ago, .theater-card .info .time-ago {
+            color: #ff5722;
+        }
+  </style>
+ </head>
+ <body>
+  <div class="sidebar">
+   <div class="logo">
+    <img alt="JKT48 Showroom Logo" height="100" src="https://storage.googleapis.com/a1aa/image/fdHZJl3oYg0PdKJwMrFZZfJIIhMhv6n8VzK2PN3Opj5PV1zTA.jpg" width="100"/>
+   </div>
+   <a href="#">
+    Home
+   </a>
+   <a href="#">
+    Top Member
+   </a>
+   <a href="#">
+    Leaderboard
+   </a>
+   <a href="#">
+    Live Stream
+   </a>
+   <a href="#">
+    Multi Room
+   </a>
+   <a href="#">
+    Multi IDN
+   </a>
+   <a href="#">
+    History Live
+   </a>
+   <a href="#">
+    Jadwal Theater
+   </a>
+   <a href="#">
+    Download APK
+   </a>
+   <a href="#">
+    Support Us
+   </a>
+   <button class="login-button bg-teal-500 text-white py-2 px-4 rounded mt-4">
+    Login
+   </button>
+  </div>
+  <div class="content">
+   <div class="search-bar">
+    <i class="fas fa-search">
+    </i>
+    <input placeholder="Search member name" type="text"/>
+   </div>
+   <div class="button-group mt-4">
+    <button>
+     All Members
+    </button>
+    <button>
+     Trainee
+    </button>
+    <button>
+     Get it on Google Play
+    </button>
+   </div>
+   <div class="live-section mt-8">
+    <h2 class="text-2xl font-bold">
+     Live Terakhir
+    </h2>
+    <div class="live-card flex mt-4">
+     <img alt="JKT48 Official" height="150" src="https://storage.googleapis.com/a1aa/image/QHIvDoyDAGoRDhrmoN23NIsv5YSkJsWCnJXzJDejQ2oiq65JA.jpg" width="150"/>
+     <div class="info">
+      <p class="date">
+       Sabtu, 23 November
+      </p>
+      <p class="views">
+       12.033 Views
+      </p>
+      <p class="time">
+       3 hours 9 minutes
+      </p>
+      <p class="platform">
+       IDN Live
+      </p>
+      <p class="name">
+       JKT48 Official
+      </p>
+      <p class="time-ago">
+       2 hours ago
+      </p>
+     </div>
+    </div>
+    <div class="live-card flex mt-4">
+     <img alt="Ribka" height="150" src="https://storage.googleapis.com/a1aa/image/BEPPBJCwjIaBA5iO0HmTXWYPqyqxD6MFYzVrVCOoJakSV98E.jpg" width="150"/>
+     <div class="info">
+      <p class="date">
+       Sabtu, 23 November
+      </p>
+      <p class="views">
+       3.905 Views
+      </p>
+      <p class="time">
+       1 hours 1 minutes
+      </p>
+      <p class="platform">
+       IDN Live
+      </p>
+      <p class="name">
+       Ribka
+      </p>
+      <p class="time-ago">
+       4 hours ago
+      </p>
+     </div>
+    </div>
+    <div class="live-card flex mt-4">
+     <img alt="Gita" height="150" src="https://storage.googleapis.com/a1aa/image/776bqrZflgV3Ai6xopWepSf2wUFGfTdAdvm8t4fjryutpqe8E.jpg" width="150"/>
+     <div class="info">
+      <p class="date">
+       Sabtu, 23 November
+      </p>
+      <p class="views">
+       8.558 Views
+      </p>
+      <p class="time">
+       1 hours 2 minutes
+      </p>
+      <p class="platform">
+       IDN Live
+      </p>
+      <p class="name">
+       Gita
+      </p>
+      <p class="time-ago">
+       5 hours ago
+      </p>
+     </div>
+    </div>
+   </div>
+   <div class="theater-section mt-8">
+    <h2 class="text-2xl font-bold">
+     Jadwal Theater
+    </h2>
+    <div class="theater-card flex mt-4">
+     <img alt="Cara Menimum Ramune" height="150" src="https://storage.googleapis.com/a1aa/image/HFSQ67CH48YsGpYDZVzrMaKLJjM9yO6Q1TCIIJ8nFfXqq65JA.jpg" width="150"/>
+     <div class="info">
+      <p class="date">
+       Minggu, 24 November 2024 - 14:00
+      </p>
+      <p class="name">
+       Cara Menimum Ramune
+      </p>
+      <p class="time-ago">
+       Cynthia
+      </p>
+     </div>
+    </div>
+    <div class="theater-card flex mt-4">
+     <img alt="Ingin Bertemu" height="150" src="https://storage.googleapis.com/a1aa/image/VApdzb7h5qqYNZAth1RNW7CYW8dfLJZzOjHfwyBeipsQqqnnA.jpg" width="150"/>
+     <div class="info">
+      <p class="date">
+       Sabtu, 23 November 2024 - 19:00
+      </p>
+      <p class="name">
+       Ingin Bertemu
+      </p>
+      <p class="time-ago">
+       Cynthia
+      </p>
+     </div>
+    </div>
+    <div class="theater-card flex mt-4">
+     <img alt="Pajama Drive" height="150" src="https://storage.googleapis.com/a1aa/image/JQMGylDHu1YOJZScn0VMaKGDIu5FJAnyNhCYFK9ExhgUV98E.jpg" width="150"/>
+     <div class="info">
+      <p class="date">
+       Jumat, 22 November 2024 - 19:00
+      </p>
+      <p class="name">
+       Pajama Drive
+      </p>
+      <p class="time-ago">
+       Cynthia
+      </p>
+     </div>
+    </div>
+   </div>
+  </div>
+ </body>
+</html> -->
