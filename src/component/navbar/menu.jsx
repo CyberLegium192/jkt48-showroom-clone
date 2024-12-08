@@ -8,10 +8,11 @@ export const Menu = ( {item} ) => {
   return (
     <>
     <li>
-      <Link className={`text-lg mb-9 font-poppins hover:scale-90 hover:duration-300 transition-all inline-flex capitalize items-center justify-center gap-x-4 ${
+      <Link className={`lg:text-sm mb-9 font-poppins hover:scale-90 hover:duration-300 transition-all inline-flex capitalize items-center justify-center gap-x-3 ${
           isActive ? 'text-orange' : 'text-white'
-        }`}>{item.icon}
-      {item.title}</Link>
+        }`} to={item.path}  >{item.icon}
+        {item.title}
+      </Link>
     </li>
     </>
   )
