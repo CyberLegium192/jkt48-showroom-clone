@@ -12,13 +12,14 @@ const cardHistory = ({ item }) => {
    
 
   return (
+    
     <div className="w-full bg-gray-800 text-white px-4 pt-4 pb-3 rounded-xl">
 
       <div className="flex gap-x-2">
         {/* IMAGE COVER */}
         <div className="w-64 h-36 rounded-lg overflow-hidden relative">
           <img src={item.member.img} alt="member photo" className="object-cover" />
-          <img src={item.type == "showroom" ? ShowroomImg : IdnImg} alt="type live" className={`${item.type == "showroom" ? "w-24 left-4" : "w-14 left-9"} absolute bottom-3`}/>
+          <img src={item.type == "showroom" ? ShowroomImg : IdnImg} alt="type ve" className={`${item.type == "showroom" ? "w-24 left-4" : "w-14 left-9"} absolute bottom-3`}/>
         </div>
 
 
@@ -44,12 +45,13 @@ const cardHistory = ({ item }) => {
       {/* DETAIL BUTTON AND LATEST LIVE */}
       <div className="flex items-center justify-between font-poppins mt-1 px-1">
         <p className="text-sm text-secondary-text flex items-center gap-x-1 justify-center"><AiOutlineFieldTime size={21} /> {timeAgo(item.created_at)}</p>
-        <Link className="font-medium tracking-wider">Details</Link>
+        <Link to={`/detail-live/${item.member.nickname}/${item.data_id}`|| "#"} className="font-medium tracking-wider">Details</Link>
       </div>
 
 
 
     </div>
+    
   )
 }
 

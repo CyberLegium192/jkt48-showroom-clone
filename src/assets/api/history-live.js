@@ -1,6 +1,6 @@
 
 import axios from 'axios';
-const histortyLiveURL = 'https://api.crstlnz.my.id/api/recent?sort=date&page=1&filter=active&order=-1&perpage=12&search=&room_id=&group=jkt48&type=all'
+const histortyLiveURL = 'https://api.crstlnz.my.id/api/recent?sort=date&page=1&filter=active&order=-1&perpage=30&search=&room_id=&group=jkt48&type=all'
 
 // GET ALL DATA HISTORY LIVE
 export const historyLive = async () => {
@@ -10,18 +10,21 @@ export const historyLive = async () => {
 
 
 // FILTERING DATA 
-export const filterHistoryLive = async (search, filterCategory) => {
+export const filterHistoryLive = async (search, filterCategory, isSort, statusMem) => {
     const response = await axios.get(
-        `https://api.crstlnz.my.id/api/recent?sort=date&page=1&filter=active&order=-1&perpage=12&search=${search}&room_id=&group=jkt48&type=all`
+        `https://api.crstlnz.my.id/api/recent?sort=date&page=1&filter=${statusMem}&order=-1&perpage=30&search=${search}&group=jkt48&type=all`
     );
     const data = response.data.recents
 
     if (filterCategory == "gift") {
-        return data.sort((a, b) => b.gift_rate * b.points - a.gift_rate * a.points)
+        return isSort ? data.sort((a, b) => b.gift_rate * b.points - a.gift_rate * a.points) : 
+         data.sort((a, b) => a.gift_rate * a.points - b.gift_rate * b.points)
     } else if(filterCategory == "duration"){
-        return data.sort((a, b) => b.live_info.duration - a.live_info.duration)
-    } else if(filterCategory == 'viewer'){
-        return data.sort((a, b) => b.live_info.viewers.num - a.live_info.viewers.num)
+        return isSort ? data.sort((a, b) => b.live_info.duration - a.live_info.duration) : 
+        data.sort((a, b) => a.live_info.duration - b.live_info.duration)
+    } else if(filterCategory == 'viewers'){
+        return isSort ? data.sort((a, b) => b.live_info.viewers?.num - a.live_info.viewers?.num) : 
+        data.sort((a, b) => a.live_info.viewers?.num - b.live_info.viewers?.num)
     } else{
         return data
     }

@@ -1,27 +1,54 @@
 import { useState } from "react";
 import {Search} from './search'
+import { HiSortAscending, HiSortDescending } from "react-icons/hi";
+
+const menu = ["all", "gift", "viewers", "duration"]
 
 
-const menu = ["all", "gift", "viewer", "duration"]
-
-
-const FilterLive = ({ onFilterChange,isFilterVisible, setIsFilterVisible, setSearchValue }) => {
-    const [selectedFilters, setSelectedFilters] = useState([]); // Menyimpan filter yang dipilih sementara
+const FilterLive = ({ onFilterChange,isFilterVisible, setIsFilterVisible, setSearchValue, setIsSort, setStatusMem }) => {
+    const [selectedFilters, setSelectedFilters] = useState("all"); // Menyimpan filter yang dipilih sementara
     const [searchInput, setSearchInput] = useState("")
+    const [activeTab, setActiveTab] = useState("active");
+    const [sortUp, setSortUp] = useState(true)
+
 
     const handleApplyFilters = () => {
         setIsFilterVisible(!isFilterVisible)
         onFilterChange(selectedFilters); // Kirim filter ke parent
         setSearchValue(searchInput)
+        setIsSort(sortUp)
+        setStatusMem(activeTab)
     };
+
+    const handleSort = () => {
+        setSortUp(!sortUp)
+    }
+
+    const handleTabSelection = (tab) => {
+        setActiveTab(tab);
+    };
+
+
+
     const isSelected = (filter) => selectedFilters.includes(filter);
 
     return (
-        <div className="w-full bg-primary-dark p-4 rounded-lg shadow-md font-poppins overflow-hidden">
+        <div className="w-full lg:fixed lg:top-0 bg-primary-dark p-4 rounded-lg shadow-md font-poppins overflow-hidden">
             <div className="w-full">
                 <Search setValue={setSearchInput}/>
             </div>
-            <h3 className="text-lg font-medium text-primary-text tracking-wider mb-4">Filter</h3>
+
+
+
+            <div className='flex items-center justify-between'>
+                <h3 className="text-lg font-light text-primary-text tracking-wider mb-6 mt-5">sort</h3>
+                <button className="text-white bg-gray-700 hover:bg-gray-800 duration-300 w-7 h-7 rounded-[5px] flex items-center justify-center" onClick={handleSort}>
+                    {
+                        sortUp ? <HiSortAscending size={21}/> : <HiSortDescending size={21}/>
+                    }
+                    
+                </button>
+            </div>
 
             <div className="">
                 {
@@ -37,10 +64,20 @@ const FilterLive = ({ onFilterChange,isFilterVisible, setIsFilterVisible, setSea
                 }
             </div>
 
+
+            <div className="flex items-center justify-between mt-4">
+                <button className={`text-white w-[50%] bg-gray-700 py-2 rounded-s-lg text-sm font-poppins font-medium capitalize tracking-wider ${activeTab === "active" ? "bg-orange" : "bg-gray-700"} hover:bg-orange-hover hover:bg-opacity-65`} onClick={() => handleTabSelection("active")}>active</button>
+
+
+                <button className={`text-white w-[50%] bg-gray-700 py-2 rounded-e-lg text-sm font-poppins font-medium capitalize tracking-wider ${activeTab === "graduated" ? "bg-orange" : "bg-gray-700"} hover:bg-orange-hover hover:bg-opacity-65`}
+                onClick={() => handleTabSelection("graduated")}>graduated</button>
+                
+            </div>
+
             {/* Tombol Apply */}
-            <div className="mt-4 flex justify-end">
+            <div className="">
                 <button
-                    className="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600"
+                    className="text-white font-poppins bg-orange-hover bg-opacity-60 hover:bg-opacity-100 duration-300 w-full mt-5 py-2 rounded-lg"
                     onClick={handleApplyFilters}
                 >
                     Apply

@@ -33,7 +33,7 @@ const navbar = () => {
 
   return (
     <>
-      <nav className='lg:w-44 bg-primary-dark lg:h-screen z-50 text-white p-3 max-sm:sticky max-sm:top-0 max-sm:w-full' >
+      <nav className='lg:w-52 bg-primary-dark lg:h-screen z-50 text-white p-3 max-sm:sticky max-sm:top-0 max-sm:w-full' >
 
       <div className="flex items-center justify-between ">
         <div>

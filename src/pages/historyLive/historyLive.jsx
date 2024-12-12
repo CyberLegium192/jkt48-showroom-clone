@@ -13,6 +13,8 @@ const Live = () => {
   const [searchValue, setSearchValue] = useState(""); // Pencarian nama
   const [loading, setLoading] = useState(true);
   const [filterCategory, setFilterCategory] = useState("all"); // Filter kategori
+  const [isSort, setIsSort] = useState(true)// filter sort up or down
+  const [statusMem, setStatusMem] = useState("")
   const [isFilterVisible, setIsFilterVisible] = useState(false); 
 
   useEffect(() => {
@@ -20,7 +22,7 @@ const Live = () => {
       setLoading(true);
       try {
         // Memanggil data berdasarkan kategori filter
-        const data = await filterHistoryLive(searchValue, filterCategory); 
+        const data = await filterHistoryLive(searchValue, filterCategory, isSort, statusMem); 
         setAllDataHistory(data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -28,7 +30,7 @@ const Live = () => {
       setLoading(false);
     };
     fetchData();
-  }, [searchValue, filterCategory]);
+  }, [searchValue, filterCategory, isSort, statusMem]);
 
 
 
@@ -43,7 +45,7 @@ const Live = () => {
           isFilterVisible ? "translate-y-0" : "-translate-y-full"
         } lg:translate-y-0 transition-transform duration-300 lg:relative lg:shadow-none shadow-lg lg:h-auto h-screen`}
       >
-          <FilterLive onFilterChange={setFilterCategory} isFilterVisible={isFilterVisible} setIsFilterVisible={setIsFilterVisible} setSearchValue={setSearchValue}/>
+          <FilterLive onFilterChange={setFilterCategory} isFilterVisible={isFilterVisible} setIsFilterVisible={setIsFilterVisible} setSearchValue={setSearchValue} setIsSort={setIsSort} setStatusMem={setStatusMem} />
       </aside>
 
       {/* Konten Utama */}
@@ -61,16 +63,16 @@ const Live = () => {
         </div>
 
         <div className="space-y-8 relative">
-          {allDataHistory?.map((item, i) => (
+          {/* {allDataHistory?.map((item, i) => (
                 <CardHistory item={item} key={i} />
              ))
-          }  
-        {/* {loading ? (
+          }   */}
+        {loading ? (
           <Loading />
         ) : (
           <div className="space-y-8 relative">
-            {Array.isArray(dataHistory) && dataHistory.length > 0 ? (
-              dataHistory.map((item, i) => (
+            {Array.isArray(allDataHistory) && allDataHistory.length > 0 ? (
+              allDataHistory.map((item, i) => (
                 <CardHistory item={item} key={i} />
               ))
             ) : (
@@ -81,7 +83,7 @@ const Live = () => {
               </div>
             )}
           </div>
-        )} */}
+        )}
         </div>
 
       </main>

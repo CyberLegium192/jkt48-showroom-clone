@@ -28,6 +28,7 @@ import HistoryLive from './pages/historyLive/historyLive'
 import DetailLive from './pages/historyLive/detailLive'
 import { Route, Routes, Navigate } from 'react-router-dom';
 import StreamingRoom from './pages/streaming/streaming'
+import MultiIdn from "./pages/multi-stream/multiIdn"
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
         <Route path='/history-live' element={<HistoryLive />} />
         <Route path='/detail-live/:nickname/:data_id' element={<DetailLive />} />
         <Route path='/streaming/:type/:url' element={<StreamingRoom />} />
+        <Route path='/multi-idn' element={<MultiIdn />} />
       </Routes>
     </Sidebar>
     </>

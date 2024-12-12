@@ -13,7 +13,7 @@ export const Search = ({setValue}) => {
 
     return (
 
-        <form className="w-full max-sm:mb-4 mb-3" onSubmit={handleSubmit}>
+        <form className="w-full max-sm:mb-4" onSubmit={handleSubmit}>
             <label
                 htmlFor="default-search"
                 className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
