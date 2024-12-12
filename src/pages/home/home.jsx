@@ -59,7 +59,7 @@ export const Home = () => {
         {/* ONLIVE SHOWROOM */}
         <div className={`${onLive.length > 0 ? "block" : "hidden"}`}>
           <LayoutHome>
-            <Headers title='live idn' linked={true}/>
+            <Headers title='live showroom' linked={true}/>
             <div className='flex flex-wrap gap-4 max-sm:grid max-sm:grid-cols-2'>
               {
                 onLive?.map((item, i) => <Onlive item={item} key={i} />)

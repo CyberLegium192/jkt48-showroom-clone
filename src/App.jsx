@@ -40,7 +40,7 @@ function App() {
         <Route path='/schedule' element={<Schedule />} />
         <Route path='/history-live' element={<HistoryLive />} />
         <Route path='/detail-live/:nickname/:data_id' element={<DetailLive />} />
-        <Route path='/streaming/:url' element={<StreamingRoom />} />
+        <Route path='/streaming/:type/:url' element={<StreamingRoom />} />
       </Routes>
     </Sidebar>
     </>

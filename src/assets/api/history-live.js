@@ -1,25 +1,31 @@
 
+import axios from 'axios';
 const histortyLiveURL = 'https://api.crstlnz.my.id/api/recent?sort=date&page=1&filter=active&order=-1&perpage=12&search=&room_id=&group=jkt48&type=all'
 
-
-import axios from 'axios';
-
-
-
-
-export const historyLive = async (search = "") => {
+// GET ALL DATA HISTORY LIVE
+export const historyLive = async () => {
     const response = await axios.get(histortyLiveURL);
     return response.data.recents;
 };
 
 
-export const filterHistoryLive = async (search = "") => {
+// FILTERING DATA 
+export const filterHistoryLive = async (search, filterCategory) => {
     const response = await axios.get(
         `https://api.crstlnz.my.id/api/recent?sort=date&page=1&filter=active&order=-1&perpage=12&search=${search}&room_id=&group=jkt48&type=all`
     );
-    return response.data;
-};
+    const data = response.data.recents
 
+    if (filterCategory == "gift") {
+        return data.sort((a, b) => b.gift_rate * b.points - a.gift_rate * a.points)
+    } else if(filterCategory == "duration"){
+        return data.sort((a, b) => b.live_info.duration - a.live_info.duration)
+    } else if(filterCategory == 'viewer'){
+        return data.sort((a, b) => b.live_info.viewers.num - a.live_info.viewers.num)
+    } else{
+        return data
+    }
+};
 
 // SHOWROOM ONLIVE 
 export const onLiveShowroom = async () => {

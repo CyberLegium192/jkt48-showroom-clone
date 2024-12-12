@@ -35,7 +35,7 @@ export const imagePosterTheater = (item) => {
 
 
 
-// validation themes news
+// VALIDATION THEME NEWS
 const hasil = {
     "/images/icon.cat1.png": {
         title: "theater",
@@ -57,7 +57,7 @@ const hasil = {
         badgeBg: "bg-black",
         hoverBg: 'hover:bg-slate-800'
     },
-    
+
 };
 export const validateThemeNews = (item) => {
     const result = hasil[item.toLowerCase()];
@@ -65,6 +65,7 @@ export const validateThemeNews = (item) => {
 }
 
 
+// VALIDATION NEXT SHOWROOM OR SHCEUDLE
 /**
  * Validasi apakah jadwal sudah lewat atau masih akan datang.
  * @param {string} date - Tanggal dalam format "DD-MM-YYYY".
@@ -72,20 +73,19 @@ export const validateThemeNews = (item) => {
  * @returns {boolean} - `true` jika jadwal sudah lewat, `false` jika belum.
  */
 export const isPastSchedule = (date, time) => {
-  // Gabungkan tanggal dan waktu menjadi satu string
-  const dateTimeString = `${date.split("-").reverse().join("-")}T${time}:00`; // Format ke "YYYY-MM-DDTHH:mm:00"
+    // Gabungkan tanggal dan waktu menjadi satu string
+    const dateTimeString = `${date.split("-").reverse().join("-")}T${time}:00`; // Format ke "YYYY-MM-DDTHH:mm:00"
 
-  // Konversi ke objek Date
-  const scheduleDateTime = new Date(dateTimeString);
+    // Konversi ke objek Date
+    const scheduleDateTime = new Date(dateTimeString);
 
-  // Bandingkan dengan waktu saat ini
-  const now = new Date();
-  return scheduleDateTime < now; // `true` jika sudah lewat, `false` jika belum
+    // Bandingkan dengan waktu saat ini
+    const now = new Date();
+    return scheduleDateTime < now; // `true` jika sudah lewat, `false` jika belum
 };
 
 
-// src/assets/validation/validation.js
-
+// VALIDATION PAGINATION
 /**
  * Validates and returns the current page number within the bounds of total pages.
  * @param {number} currentPage - The current page number.
@@ -98,3 +98,45 @@ export const validatePageNumber = (currentPage, totalPages) => {
     return currentPage;
 };
 
+
+// VALIDATION FORMAT DURATION RECENTS LIVE
+/**
+ * Mengubah durasi (ms) menjadi format jam dan menit.
+ * @param {number} ms - Durasi dalam milidetik.
+ * @returns {string} Durasi terformat.
+ */
+export const formatDuration = (ms) => {
+    const totalMinutes = Math.floor(ms / 60000);
+    if (totalMinutes < 60) {
+        return `${totalMinutes} Minutes`;
+    } else {
+        const hours = Math.floor(totalMinutes / 60);
+        const minutes = totalMinutes % 60;
+        return `${hours} Hours ${minutes} Minutes`;
+    }
+};
+
+// VALIDATION FORMAT TIME AGO
+/**
+ * Menghitung waktu relatif dari waktu yang diberikan ke waktu saat ini.
+ * @param {string} createdAt - Tanggal dan waktu dalam format ISO.
+ * @returns {string} Waktu relatif dalam format string.
+ */
+export const timeAgo = (createdAt) => {
+    const now = new Date();
+    const past = new Date(createdAt);
+    const diffInSeconds = Math.floor((now - past) / 1000);
+
+    if (diffInSeconds < 60) {
+        return `${diffInSeconds} detik lalu`;
+    } else if (diffInSeconds < 3600) {
+        const minutes = Math.floor(diffInSeconds / 60);
+        return `${minutes} menit lalu`;
+    } else if (diffInSeconds < 86400) {
+        const hours = Math.floor(diffInSeconds / 3600);
+        return `${hours} jam lalu`;
+    } else {
+        const days = Math.floor(diffInSeconds / 86400);
+        return `${days} hari lalu`;
+    }
+};

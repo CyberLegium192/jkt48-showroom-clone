@@ -5,24 +5,21 @@ import {Search} from './search'
 const menu = ["all", "gift", "viewer", "duration"]
 
 
-const FilterLive = ({ onFilterChange,isFilterVisible, setIsFilterVisible }) => {
+const FilterLive = ({ onFilterChange,isFilterVisible, setIsFilterVisible, setSearchValue }) => {
     const [selectedFilters, setSelectedFilters] = useState([]); // Menyimpan filter yang dipilih sementara
-
-    const handleFilterToggle = (filter) => {
-        setSelectedFilters(filter);
-        onFilterChange(filter);
-    };
+    const [searchInput, setSearchInput] = useState("")
 
     const handleApplyFilters = () => {
-        onFilterChange(selectedFilters); // Kirim filter ke parent
         setIsFilterVisible(!isFilterVisible)
+        onFilterChange(selectedFilters); // Kirim filter ke parent
+        setSearchValue(searchInput)
     };
     const isSelected = (filter) => selectedFilters.includes(filter);
 
     return (
         <div className="w-full bg-primary-dark p-4 rounded-lg shadow-md font-poppins overflow-hidden">
             <div className="w-full">
-                <Search />
+                <Search setValue={setSearchInput}/>
             </div>
             <h3 className="text-lg font-medium text-primary-text tracking-wider mb-4">Filter</h3>
 
@@ -33,7 +30,7 @@ const FilterLive = ({ onFilterChange,isFilterVisible, setIsFilterVisible }) => {
                             } hover:bg-orange-hover hover:bg-opacity-70 ${i === 0 ? "rounded-t-xl" : "" // Tombol pertama
                             } ${i === menu.length - 1 ? "rounded-b-xl" : "" // Tombol terakhir
                             }`}
-                            onClick={() => handleFilterToggle(item)}
+                            onClick={() => setSelectedFilters(item)}
                             key={i}>
                             {item}
                         </button>)

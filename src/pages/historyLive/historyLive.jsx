@@ -9,18 +9,19 @@ import { IoSearch } from "react-icons/io5";
 
 
 const Live = () => {
-  const [dataHistory, setDataHistory] = useState([]);
-  const [searchValue, setSearchValue] = useState("");
+  const [allDataHistory, setAllDataHistory] = useState([]); // Data mentah dari API
+  const [searchValue, setSearchValue] = useState(""); // Pencarian nama
   const [loading, setLoading] = useState(true);
-  const [filterCategory, setFilterCategory] = useState("all");
-  const [isFilterVisible, setIsFilterVisible] = useState(false); // State untuk filter
+  const [filterCategory, setFilterCategory] = useState("all"); // Filter kategori
+  const [isFilterVisible, setIsFilterVisible] = useState(false); 
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const data = await filterHistoryLive(searchValue);
-        setDataHistory(data.recents);
+        // Memanggil data berdasarkan kategori filter
+        const data = await filterHistoryLive(searchValue, filterCategory); 
+        setAllDataHistory(data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -28,6 +29,9 @@ const Live = () => {
     };
     fetchData();
   }, [searchValue, filterCategory]);
+
+
+
 
   return (
     <div className="flex flex-col lg:flex-row-reverse gap-2 relative">
@@ -39,7 +43,7 @@ const Live = () => {
           isFilterVisible ? "translate-y-0" : "-translate-y-full"
         } lg:translate-y-0 transition-transform duration-300 lg:relative lg:shadow-none shadow-lg lg:h-auto h-screen`}
       >
-          <FilterLive onFilterChange={setFilterCategory} isFilterVisible={isFilterVisible} setIsFilterVisible={setIsFilterVisible}/>
+          <FilterLive onFilterChange={setFilterCategory} isFilterVisible={isFilterVisible} setIsFilterVisible={setIsFilterVisible} setSearchValue={setSearchValue}/>
       </aside>
 
       {/* Konten Utama */}
@@ -57,13 +61,10 @@ const Live = () => {
         </div>
 
         <div className="space-y-8 relative">
-          <CardHistory  />
-          {/* {
-            dataHistory.map((item, i) => (
-            ))
-          }           */}
-        </div>
-
+          {allDataHistory?.map((item, i) => (
+                <CardHistory item={item} key={i} />
+             ))
+          }  
         {/* {loading ? (
           <Loading />
         ) : (
@@ -81,6 +82,8 @@ const Live = () => {
             )}
           </div>
         )} */}
+        </div>
+
       </main>
     </div>
   );
