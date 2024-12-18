@@ -11,23 +11,10 @@ export const historyLive = async () => {
 
 // FILTERING DATA 
 export const filterHistoryLive = async (search, filterCategory, isSort, statusMem) => {
-    const response = await axios.get(
-        `https://api.crstlnz.my.id/api/recent?sort=date&page=1&filter=${statusMem}&order=-1&perpage=30&search=${search}&group=jkt48&type=all`
-    );
+    const api_url = `https://api.crstlnz.my.id/api/recent?sort=${filterCategory}&page=1&perpage=20&filter=${statusMem}&order=${isSort ? "-1" : "1"}&search=${search}&group=jkt48&type=all`
+    const response = await axios.get(api_url);
     const data = response.data.recents
-
-    if (filterCategory == "gift") {
-        return isSort ? data.sort((a, b) => b.gift_rate * b.points - a.gift_rate * a.points) : 
-         data.sort((a, b) => a.gift_rate * a.points - b.gift_rate * b.points)
-    } else if(filterCategory == "duration"){
-        return isSort ? data.sort((a, b) => b.live_info.duration - a.live_info.duration) : 
-        data.sort((a, b) => a.live_info.duration - b.live_info.duration)
-    } else if(filterCategory == 'viewers'){
-        return isSort ? data.sort((a, b) => b.live_info.viewers?.num - a.live_info.viewers?.num) : 
-        data.sort((a, b) => a.live_info.viewers?.num - b.live_info.viewers?.num)
-    } else{
-        return data
-    }
+    return data
 };
 
 // SHOWROOM ONLIVE 

@@ -11,31 +11,34 @@ const StreamingRoom = () => {
   useEffect(() => {
     if (!videoRef.current) return;
 
-    const decodedUrl = decodeURIComponent(url); // Decode URL
-    
-    // const decodedUrlIdn = `http://localhost:5000/api/proxy?url=${decodeURIComponent(url)}`; // URL untuk IDN
-    const decodedUrlIdn = `https://crossorigin.me/${decodeURIComponent(url)}`; // URL untuk IDN
-    // const decodedUrlIdn = decodeURIComponent(url); // Decode URL
+    // Decode URL dan ubah untuk proxy
+    const decodedUrl = decodeURIComponent(url);
 
-    const videoSource = type === 'showroom' ? decodedUrl : decodedUrlIdn; // Pilih URL berdasarkan type
+    const idnLive = `https://jkt48showroom-api.my.id/proxy?url=${decodedUrl}`
+    // Tentukan sumber video
+    const videoSource = type === 'showroom' ? decodedUrl : idnLive;
+
+    console.log('Video Source:', videoSource); // Debugging
 
     if (Hls.isSupported()) {
       const hls = new Hls();
-      hls.loadSource(videoSource); // Load URL HLS
-      hls.attachMedia(videoRef.current); // Attach ke elemen video
+
+      hls.loadSource(videoSource);
+      hls.attachMedia(videoRef.current);
 
       hls.on(Hls.Events.MANIFEST_PARSED, () => {
         console.log('HLS manifest parsed successfully!');
       });
 
       return () => {
-        hls.destroy(); // Membersihkan Hls saat komponen di-unmount
+        hls.destroy(); // Membersihkan Hls instance saat unmount
       };
     } else if (videoRef.current.canPlayType('application/vnd.apple.mpegurl')) {
-      // Fallback untuk browser yang mendukung native HLS (seperti Safari)
       videoRef.current.src = videoSource;
     }
-  }, [url, type]); // Tambahkan 'type' ke dependency array
+  }, [url, type]);
+
+
 
   return (
     <div>
@@ -44,6 +47,7 @@ const StreamingRoom = () => {
         ref={videoRef}
         controls
         className='w-auto h-96'
+        // referrerPolicy="no-referrer"
       />
     </div>
   );

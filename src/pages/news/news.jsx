@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
 import { fetchNews } from '../../assets/api/api'
 import { News } from '../../component/card/news'
+import { ImNewspaper } from "react-icons/im";
 import { SkeletonCardNews } from "../../component/skeletons/news-skeletons"
 import { Pagination } from "../../component/pagination/pagination";
 import { validatePageNumber } from '../../assets/validation/validation';
-
 import { LayoutHome } from '../home/home'
+import { Headers } from '../home/home';
 
 const news = () => {
     const [newsData, setNewsData] = useState([])
@@ -44,12 +45,10 @@ const news = () => {
 
     return (
         <>
-            <div className='bg-primary-dark pt-2 lg:pb-2 max-sm:pb-4 px-6 rounded-xl lg:mb-7 max-sm:mb-6 lg:flex items-center justify-between'>
-                <h2 className='text-xl font-poppins font-light text-primary-text capitalize mb-2 pr-5 mt-2'>News</h2>
-            </div>
 
             <LayoutHome>
-                <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-5 mt-5 mb-4'>
+                <Headers title='News' href='/news' icons={<ImNewspaper size={23} />} colors="text-red-700" linked={true}/>                
+                <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-5 mt-9 mb-4'>
                     {loading
                         ? Array.from({ length: itemsPerPage }, (_, i) => <SkeletonCardNews key={i} />) // Tampilkan skeleton
                         : currentItems.map((item, i) => <News key={i} item={item} />)

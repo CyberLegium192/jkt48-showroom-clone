@@ -1,15 +1,19 @@
 import { useParams, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
-import { detailLive } from '../../assets/api/history-live'
+import { detailLive, onLiveShowroom, onLiveIdn } from '../../assets/api/history-live'
 import { Aside } from "../../component/sidebar/aside"
 import { IoArrowBackSharp } from "react-icons/io5";
 import { HeaderDetail } from "../../component/menu/header-detail";
+import { OnLives } from "../../component/card/card-history";
 import { DetailGift } from "../../component/menu/detail-gift";
 import { PictureLive } from "../../component/menu/picture-live";
+import GiftInfo from "../../component/menu/GIftInfo";
 import { format, isValid } from "date-fns";
 
 const DetailLive = () => {
   const [data, setData] = useState()
+  const [showroomLive, setShowroomLive] = useState([])
+  const [idnLive, setIdnLive] = useState([])
   const { data_id } = useParams()
   const createdAt = data?.created_at ? new Date(data?.created_at) : null;
 
@@ -31,24 +35,53 @@ const DetailLive = () => {
     }
     fetchLogDetailLive()
 
-  }, [])
+    const fetchLiveShowroom = async () => {
+      const response = await onLiveShowroom()
+      setShowroomLive(response.data)
+    }
+    fetchLiveShowroom()
+
+    const fetchLiveIdn = async () => {
+      const response = await onLiveIdn()
+      setIdnLive(response)
+    }
+    fetchLiveIdn()
+
+  }, [data_id])
 
   return (
     <>
       <div className="flex flex-col lg:flex-row-reverse gap-5">
         <Aside>
-          <div className="w-full bg-primary-dark text-white">
-            adsfasf
+          {/* Onlive */}
+          <div className="w-full bg-gray-800 text-white px-3 py-5 rounded-lg">
+            <h5 className="text-lg font-poppins capitalize font-semibold tracking-wider">now live</h5>
+            <div className="w-full mt-5">
+              {
+                showroomLive?.map((item, i) => <OnLives key={i} item={item}/>)
+              }
+              {
+                idnLive?.map((item, i) => <OnLives key={i} item={item}/>)
+              }
+              
+            </div>
           </div>
         </Aside>
 
         <main className="w-full lg:w-[75%] bg-primary-dark rounded-t-lg">
-          <HeadersNavigartion data={data} handleBack={handleBack} date={formattedDate}/>
+          <HeadersNavigartion data={data} handleBack={handleBack} date={formattedDate} />
           <HeaderDetail data={data} />
           {
             data?.idn ? <PictureLive data={data} /> : null
           }
           <DetailGift data={data} />
+          {/* GiftInfo Section */}
+          {data?.live_info?.gift?.list && (
+            <div className="px-4">
+              <GiftInfo gifts={data.live_info.gift.list} />
+
+            </div>
+          )}
         </main>
 
 
@@ -58,7 +91,7 @@ const DetailLive = () => {
   )
 }
 
-const HeadersNavigartion = ({ data, handleBack, date}) => {
+const HeadersNavigartion = ({ data, handleBack, date }) => {
   return (
     <div
       className={`relative top-0 left-0 pb-2 pt-3 px-5 rounded-t-lg flex items-center transition-all duration-300 bg-gray-700 bg-opacity-30 backdrop-blur-md w-full`}

@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { Await } from 'react-router-dom';
 const url = 'https://jkt48-c9e60-default-rtdb.firebaseio.com'
 
 
@@ -43,47 +42,44 @@ export const fetchNews = async (PATH) => {
 // FETCHING SCHEDULE DATA
 
 export const fetchSchedule = async (PATH) => {
-  try {
-    const response = await axios.get(`${url}${PATH}`);
-    const data = response.data;
+  // try {
+  //   const response = await axios.get(`${url}${PATH}`);
+  //   const data = response.data;
 
-    const formattedData = Object.entries(data).map(([key, value]) => ({
-      ...value, 
-      firebaseId: key, 
-    }));
+  //   const formattedData = Object.entries(data).map(([key, value]) => ({
+  //     ...value,
+  //     firebaseId: key,
+  //   }));
 
 
-    // Sort data berdasarkan tanggal terbaru (descending)
-    const sortedData = formattedData.sort((a, b) => {
-      const dateA = new Date(a.date.split("-").reverse().join("-")); // Format ke YYYY-MM-DD
-      const dateB = new Date(b.date.split("-").reverse().join("-"));
-      return dateB - dateA; // Sort descending berdasarkan tanggal
-    });
+  //   // Sort data berdasarkan tanggal terbaru (descending)
+  //   const sortedData = formattedData.sort((a, b) => {
+  //     const dateA = new Date(a.date.split("-").reverse().join("-")); // Format ke YYYY-MM-DD
+  //     const dateB = new Date(b.date.split("-").reverse().join("-"));
+  //     return dateB - dateA; // Sort descending berdasarkan tanggal
+  //   });
 
-    return sortedData;
-  } catch (error) {
-    console.error("Error fetching schedule:", error);
-    return [];
-  }
+  //   return sortedData;
+  // } catch (error) {
+  //   console.error("Error fetching schedule:", error);
+  //   return [];
+  // }
+  const response = axios.get("https://api.crstlnz.my.id/api/event")
+  return response
 };
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-export const fecthSsk = async () => {
-  const response = await axios.get("https://api.crstlnz.my.id/api/sousenkyo/members")
-  return response.data
+// YOUTUBE VIDEO 
+export const youtubeData = async () => {
+  const response = await axios.get("https://yt-api.p.rapidapi.com/channel/videos", {
+    url: 'https://yt-api.p.rapidapi.com/channel/videos',
+    params: {
+      id: 'UCadv-UfEyjjwOPcZHc2QvIQ'
+    },
+    headers: {
+      'x-rapidapi-key': '7684e90671msha4c9e8b0e96d257p1862e2jsnebe34a94e1fe',
+      'x-rapidapi-host': 'yt-api.p.rapidapi.com'
+    }
+  })
+  return response.data.data
 }
-
-// https://www.youtube.com/watch?v=
-

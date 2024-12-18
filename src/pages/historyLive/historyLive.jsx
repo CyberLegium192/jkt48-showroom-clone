@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { filterHistoryLive } from "../../assets/api/history-live";
-import { Search } from "../../component/input/search";
-import CardHistory from "../../component/card/card-history";
+import {CardHistory} from "../../component/card/card-history";
 import { Loading } from "../../component/input/loading";
 import FilterLive from "../../component/input/filter";
 import { IoSearch } from "react-icons/io5";
@@ -63,10 +62,6 @@ const Live = () => {
         </div>
 
         <div className="space-y-8 relative">
-          {/* {allDataHistory?.map((item, i) => (
-                <CardHistory item={item} key={i} />
-             ))
-          }   */}
         {loading ? (
           <Loading />
         ) : (

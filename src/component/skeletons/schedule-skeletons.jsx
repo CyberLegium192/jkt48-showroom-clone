@@ -1,32 +1,38 @@
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
-export const ScheduleSkeleton = ({ recent }) => {
+export const ScheduleSkeleton = () => {
   return (
     <SkeletonTheme
-      baseColor="#1E252F"         // Warna dasar gelap yang lebih lembut
+      baseColor="#1E252F"
       highlightColor="#313640"
-      borderRadius={10} // Mengatur border radius global
+      borderRadius={10}
     >
-
-      <div className={`overflow-hidden relative rounded-lg border-2 border-border-color ${recent ? "lg:w-36 max-sm:w-full" : "lg:w-64 max-sm:w-full"}`}>
+      <div className='overflow-hidden relative rounded-lg p-3 bg-gray-800'>
         {/* Skeleton for image */}
-        <div className={`${recent ? "lg:w-36 max-sm:w-full" : "lg:w-60 max-sm:w-full"} h-44 overflow-hidden -mt-1`}>
-          <Skeleton className="h-full w-full" />
+        <div className='w-full h-40 overflow-hidden relative'>
+          <Skeleton className='object-center object-cover w-full h-full rounded-lg' />
+          <span className='absolute top-0 left-0 text-sm py-1 px-5  bg-opacity-90 rounded-tl-lg rounded-br-lg font-poppins text-white'>
+            <Skeleton width={50} height={15} />
+          </span>
         </div>
 
-        {/* Skeleton for gradient and texts */}
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent via-black/40 to-black/60">
-          {/* Skeleton for time and date */}
-          <div className="absolute top-0 left-0 bg-black/40 px-2 rounded-lg">
-            <Skeleton width={40} height={7} />
-            <Skeleton width={70} height={7} />
-          </div>
-
+        {/* Skeleton for text content */}
+        <div className='mt-3 pl-1 relative'>
           {/* Skeleton for title */}
-          <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 text-center">
+          <p className='font-poppins text-sm text-white font-medium'>
             <Skeleton width={150} height={17} />
-          </div>
+          </p>
+          
+          {/* Skeleton for date */}
+          <p className='text-xs text-gray-300 my-2 font-poppins font-normal'>
+            <Skeleton width={100} height={12} />
+          </p>
+
+          {/* Skeleton for member count */}
+          <p className='text-xs inline-block font-poppins text-white  px-3 py-1 rounded-xl'>
+            <Skeleton width={70} height={12} />
+          </p>
         </div>
       </div>
     </SkeletonTheme>

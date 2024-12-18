@@ -2,11 +2,11 @@ import { useState } from "react";
 import {Search} from './search'
 import { HiSortAscending, HiSortDescending } from "react-icons/hi";
 
-const menu = ["all", "gift", "viewers", "duration"]
+const menu = ["date", "gift", "views", "duration"]
 
 
 const FilterLive = ({ onFilterChange,isFilterVisible, setIsFilterVisible, setSearchValue, setIsSort, setStatusMem }) => {
-    const [selectedFilters, setSelectedFilters] = useState("all"); // Menyimpan filter yang dipilih sementara
+    const [selectedFilters, setSelectedFilters] = useState("date"); // Menyimpan filter yang dipilih sementara
     const [searchInput, setSearchInput] = useState("")
     const [activeTab, setActiveTab] = useState("active");
     const [sortUp, setSortUp] = useState(true)
@@ -15,7 +15,7 @@ const FilterLive = ({ onFilterChange,isFilterVisible, setIsFilterVisible, setSea
     const handleApplyFilters = () => {
         setIsFilterVisible(!isFilterVisible)
         onFilterChange(selectedFilters); // Kirim filter ke parent
-        setSearchValue(searchInput)
+        // setSearchValue(searchInput)
         setIsSort(sortUp)
         setStatusMem(activeTab)
     };
@@ -35,7 +35,7 @@ const FilterLive = ({ onFilterChange,isFilterVisible, setIsFilterVisible, setSea
     return (
         <div className="w-full lg:fixed lg:top-0 bg-primary-dark p-4 rounded-lg shadow-md font-poppins overflow-hidden">
             <div className="w-full">
-                <Search setValue={setSearchInput}/>
+                <Search setValue={setSearchValue}/>
             </div>
 
 
@@ -77,7 +77,7 @@ const FilterLive = ({ onFilterChange,isFilterVisible, setIsFilterVisible, setSea
             {/* Tombol Apply */}
             <div className="">
                 <button
-                    className="text-white font-poppins bg-orange-hover bg-opacity-60 hover:bg-opacity-100 duration-300 w-full mt-5 py-2 rounded-lg"
+                    className="text-white font-poppins bg-orange hover:bg-orange-hover duration-300 w-full mt-5 py-2 rounded-lg"
                     onClick={handleApplyFilters}
                 >
                     Apply
