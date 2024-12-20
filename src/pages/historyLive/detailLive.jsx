@@ -9,6 +9,12 @@ import { DetailGift } from "../../component/menu/detail-gift";
 import { PictureLive } from "../../component/menu/picture-live";
 import GiftInfo from "../../component/menu/GIftInfo";
 import { format, isValid } from "date-fns";
+import BusySVG from "../../assets/bussy.svg";
+import Skeleton, {SkeletonTheme} from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+
+
+
 
 const DetailLive = () => {
   const [data, setData] = useState()
@@ -42,11 +48,10 @@ const DetailLive = () => {
     fetchLiveShowroom()
 
     const fetchLiveIdn = async () => {
-      const response = await onLiveIdn()
+      const response = await onLiveIdn("/idn_lives")
       setIdnLive(response)
     }
     fetchLiveIdn()
-
   }, [data_id])
 
   return (
@@ -54,27 +59,28 @@ const DetailLive = () => {
       <div className="flex flex-col lg:flex-row-reverse gap-5">
         <Aside>
           {/* Onlive */}
-          <div className="w-full bg-gray-800 text-white px-3 py-5 rounded-lg">
-            <h5 className="text-lg font-poppins capitalize font-semibold tracking-wider">now live</h5>
-            <div className="w-full mt-5">
-              {
-                showroomLive?.map((item, i) => <OnLives key={i} item={item}/>)
-              }
-              {
-                idnLive?.map((item, i) => <OnLives key={i} item={item}/>)
-              }
-              
-            </div>
+          <div className="w-full bg-gray-800 text-white px-3 py-2 pt-4 pb-5 rounded-lg ">
+            <h5 className="text-lg font-poppins capitalize font-semibold tracking-wider mb-1 px-2">now live</h5>
+            {
+              (idnLive && idnLive.length > 0) || (showroomLive && showroomLive.length > 0)
+                ? <NowLive  showroomLive={showroomLive} idnLive={idnLive} />
+                : 
+                <div className="flex items-center flex-col w-full">
+                  <img src={BusySVG} className="w-48 -mb-2"/>
+                  <p className="font-poppins text-sm tracking-wider">Tidak ada live 😭</p>
+                </div>
+            }
           </div>
         </Aside>
 
         <main className="w-full lg:w-[75%] bg-primary-dark rounded-t-lg">
           <HeadersNavigartion data={data} handleBack={handleBack} date={formattedDate} />
+
           <HeaderDetail data={data} />
-          {
-            data?.idn ? <PictureLive data={data} /> : null
-          }
+          <PictureLive data={data} />
           <DetailGift data={data} />
+
+
           {/* GiftInfo Section */}
           {data?.live_info?.gift?.list && (
             <div className="px-4">
@@ -82,12 +88,24 @@ const DetailLive = () => {
 
             </div>
           )}
+          
         </main>
-
-
-
       </div>
     </>
+  )
+}
+
+
+const NowLive = ({ showroomLive, idnLive }) => {
+  return (
+    <div className="w-full mt-3">
+      {
+        showroomLive?.map((item, i) => <OnLives key={i} item={item} />)
+      }
+      {
+        idnLive?.map((item, i) => <OnLives key={i} item={item} />)
+      }
+    </div>
   )
 }
 

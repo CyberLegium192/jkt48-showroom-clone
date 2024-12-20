@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom'
 import Sayonara from '../../assets/sayonara.webp'
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+import { ProfilePicture } from '../skeletons/header-detail-skeletons';
 
-
-
-export const HeaderDetail = ({data}) => {
+export const HeaderDetail = ({ data }) => {
     const grade = data?.room_info?.is_graduate
     const gen = data?.room_info?.generation.replace("-jkt48", " ").replace("gen", " ")
 
@@ -12,12 +13,19 @@ export const HeaderDetail = ({data}) => {
 
     return (
         <div>
-            <img src={Sayonara} alt="banner" className='w-full'/>
-            
+            {
+                data ? <img src={Sayonara} alt="banner" className='w-full' /> :
+                    <SkeletonTheme
+                        baseColor="#161B22" highlightColor="#0D1117"
+                    >
+                        <Skeleton height={160} width="100%" />
+                    </SkeletonTheme>
+            }
+
             <div className=' bg-primary-dark pb-4'>
                 {/* PROFILE PICTURE */}
                 <div className='relative'>
-                    <img src={data?.room_info?.img_alt} alt="member photo" className='absolute -top-10 w-28 h-28 max-sm:w-24 max-sm:h-24 object-cover object-center rounded-full ml-3 border-[6px] border-primary-dark'/>
+                    <img src={data?.room_info?.img_alt} alt="member photo" className='absolute -top-10 w-28 h-28 max-sm:w-24 max-sm:h-24 object-cover object-center rounded-full ml-3 border-[6px] border-primary-dark' />
                 </div>
 
                 {/* SOSIAL MEDIA */}

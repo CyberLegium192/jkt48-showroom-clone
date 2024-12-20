@@ -42,29 +42,7 @@ export const fetchNews = async (PATH) => {
 // FETCHING SCHEDULE DATA
 
 export const fetchSchedule = async (PATH) => {
-  // try {
-  //   const response = await axios.get(`${url}${PATH}`);
-  //   const data = response.data;
-
-  //   const formattedData = Object.entries(data).map(([key, value]) => ({
-  //     ...value,
-  //     firebaseId: key,
-  //   }));
-
-
-  //   // Sort data berdasarkan tanggal terbaru (descending)
-  //   const sortedData = formattedData.sort((a, b) => {
-  //     const dateA = new Date(a.date.split("-").reverse().join("-")); // Format ke YYYY-MM-DD
-  //     const dateB = new Date(b.date.split("-").reverse().join("-"));
-  //     return dateB - dateA; // Sort descending berdasarkan tanggal
-  //   });
-
-  //   return sortedData;
-  // } catch (error) {
-  //   console.error("Error fetching schedule:", error);
-  //   return [];
-  // }
-  const response = axios.get("https://api.crstlnz.my.id/api/event")
+  const response = axios.get(`${import.meta.env.VITE_API_URL_DC}${PATH}`)
   return response
 };
 

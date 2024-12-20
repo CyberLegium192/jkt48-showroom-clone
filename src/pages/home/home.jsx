@@ -12,7 +12,7 @@ import { FaYoutube } from "react-icons/fa";
 import Carousel from '../../component/carousel/carousel'
 import { News } from "../../component/card/news"
 import { Schedule } from '../../component/card/scheduleCard';
-import {Onlive} from '../../component/card/onlive';
+import { Onlive } from '../../component/card/onlive';
 import { YoutubeVideo } from '../../component/card/youtube-video';
 // IMPORT API
 import { fetchNews, fetchSchedule, youtubeData } from "../../assets/api/api"
@@ -35,15 +35,15 @@ export const Home = () => {
 
   useEffect(() => {
     const fetchDataNews = async () => {
-      const data = await fetchNews('/news.json'); 
+      const data = await fetchNews('/news.json');
       setNewsData(data); // Set data ke state
       setIsLoadingNews(false)
     };
     fetchDataNews();
 
     const fetchDataSchedule = async () => {
-      const data = await fetchSchedule(); // Tunggu data dari fetchNews
-      setScheduleData(data.data.theater.recent); // Set data ke state
+      const data = await fetchSchedule("/event"); // Tunggu data dari fetchNews
+      setScheduleData(data?.data.theater.recent); // Set data ke state
       setIsLoadingSchedule(false)
     };
     fetchDataSchedule();
@@ -56,7 +56,7 @@ export const Home = () => {
     fetchShowroomLive()
 
     const fetchIDNLive = async () => {
-      const data = await onLiveIdn()
+      const data = await onLiveIdn("/idn_lives")
       setOnliveIDN(data)
     }
     fetchIDNLive()
@@ -67,6 +67,9 @@ export const Home = () => {
       setIsLoadingYoutube(false)
     }
     fetchYoutube()
+    // console.log("importing env: ", import.meta.env.VITE_API_URL_SCHEDULE);
+
+
   }, [])
 
 
@@ -74,6 +77,8 @@ export const Home = () => {
     <>
       <div>
         {/* ONLIVE MEMBER */}
+        <div>
+
           <LayoutHome>
             <Headers title='live member' linked={true} icons={<CiStreamOn size={26} />} colors="text-red-600" />
             <div className='grid grid-cols-5 gap-6 max-sm:grid max-sm:grid-cols-2 '>
@@ -85,6 +90,7 @@ export const Home = () => {
               }
             </div>
           </LayoutHome>
+        </div>
 
         {/* HISTORY LIVE */}
         <LayoutHome>

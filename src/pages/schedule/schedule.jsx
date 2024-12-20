@@ -16,9 +16,9 @@ const schedule = () => {
 
     useEffect(() => {
         const fetchDataSchedule = async () => {
-            const data = await fetchSchedule(); // Tunggu data dari fetchNews
-            setUpcomingScheduleTheater(data.data.theater.upcoming); // Set data ke state
-            setScheduleData(data.data.theater.recent)
+            const data = await fetchSchedule("/event"); // Tunggu data dari fetchNews
+            setUpcomingScheduleTheater(data?.data.theater.upcoming); // Set data ke state
+            setScheduleData(data?.data.theater.recent)
             setIsLoading(false)
         };
         fetchDataSchedule();

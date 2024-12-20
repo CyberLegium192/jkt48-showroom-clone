@@ -40,9 +40,9 @@ const Live = () => {
 
       {/* Sidebar Filter */}
       <aside
-        className={`fixed lg:static max-sm:top-16 left-0 w-full lg:w-1/4 bg-secondary-dark z-40 transform  ${
+        className={`max-sm:fixed max-sm:top-14 left-0 w-full lg:w-1/4 bg-secondary-dark z-40 transform  ${
           isFilterVisible ? "translate-y-0" : "-translate-y-full"
-        } lg:translate-y-0 transition-transform duration-300 lg:relative lg:shadow-none shadow-lg lg:h-auto h-screen`}
+        } lg:translate-y-0 transition-transform duration-300 lg:shadow-none shadow-lg lg:h-auto`}
       >
           <FilterLive onFilterChange={setFilterCategory} isFilterVisible={isFilterVisible} setIsFilterVisible={setIsFilterVisible} setSearchValue={setSearchValue} setIsSort={setIsSort} setStatusMem={setStatusMem} />
       </aside>
