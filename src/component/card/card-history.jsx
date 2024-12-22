@@ -99,11 +99,12 @@ export const OnLives = ({ item }) => {
   // const image = "https://cdn.idntimes.com/content-images/post/20241216/266ef38a-da00-4d13-ba77-f94da68599ee-241216221726.jpg"
   return (
     <div className="flex gap-x-4 mb-4 overflow-hidden relative border-b-2 border-b-gray-600 pb-3 ">
-      <img src={item?.image_square ? item.image_square : item.image} alt="" className="w-[45%] h-28 object-cover rounded-lg" />
+      <img src={item?.image_square ? item.image_square : item.image} alt="" className="w-[35%] h-28 object-cover rounded-lg" />
 
 
       <div className="w-full py-2">
         <p className="text-sm font-poppins font-medium ">{item?.main_name ? item.main_name : item?.user.name}</p>
+        
         {item?.started_at && (
           <p className="text-xs text-gray-400 font-poppins mt-2">
             {calculateRelativeTime(item.started_at)}
@@ -115,7 +116,7 @@ export const OnLives = ({ item }) => {
           </p>
         )}
 
-        <Link className="absolute bottom-2 right-2 text-xs py-1 px-3 rounded-lg font-poppins flex items-center gap-x-2 bg-red-600" to={`/streaming/${item.slug ? "idn" : "showroom"}/${encodeURIComponent(item?.streaming_url_list?.[0]?.url || item?.stream_url)}`}>
+        <Link className="absolute bottom-2 right-2 text-xs py-1 px-3 rounded-lg font-poppins flex items-center gap-x-2 bg-red-600" to={`/streaming/${item.slug ? "idn" : "showroom"}/${item.slug ? item.user.username : item.room_url_key}`}>
           <BsFillCameraVideoFill /> watch
         </Link>
 

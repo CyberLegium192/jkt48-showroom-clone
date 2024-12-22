@@ -10,16 +10,16 @@ import { PictureLive } from "../../component/menu/picture-live";
 import GiftInfo from "../../component/menu/GIftInfo";
 import { format, isValid } from "date-fns";
 import BusySVG from "../../assets/bussy.svg";
-import Skeleton, {SkeletonTheme} from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-
-
-
+import { historyLive } from "../../assets/api/history-live";
+import { RecentLive } from "../../component/card/recentLive";
+import GiftList from "../../component/menu/giftList";
 
 const DetailLive = () => {
   const [data, setData] = useState()
   const [showroomLive, setShowroomLive] = useState([])
   const [idnLive, setIdnLive] = useState([])
+  const [recentLive, setRecentLive] = useState([])
   const { data_id } = useParams()
   const createdAt = data?.created_at ? new Date(data?.created_at) : null;
 
@@ -47,6 +47,13 @@ const DetailLive = () => {
     }
     fetchLiveShowroom()
 
+    const fetchRecentLive = async () => {
+      const response = await historyLive()
+      setRecentLive(response)
+    }
+    fetchRecentLive()
+    
+
     const fetchLiveIdn = async () => {
       const response = await onLiveIdn("/idn_lives")
       setIdnLive(response)
@@ -63,17 +70,25 @@ const DetailLive = () => {
             <h5 className="text-lg font-poppins capitalize font-semibold tracking-wider mb-1 px-2">now live</h5>
             {
               (idnLive && idnLive.length > 0) || (showroomLive && showroomLive.length > 0)
-                ? <NowLive  showroomLive={showroomLive} idnLive={idnLive} />
-                : 
-                <div className="flex items-center flex-col w-full">
+              ? <NowLive  showroomLive={showroomLive} idnLive={idnLive} />
+              : 
+              <div className="flex items-center flex-col w-full">
                   <img src={BusySVG} className="w-48 -mb-2"/>
                   <p className="font-poppins text-sm tracking-wider">Tidak ada live 😭</p>
                 </div>
             }
           </div>
+          <div className="w-full bg-gray-800 text-white px-3 py-2 pt-4 pb-5 rounded-lg mt-6 max-sm:hidden">
+            <h5 className="text-lg font-poppins capitalize font-semibold tracking-wider mb-1 px-2">recent live</h5>
+            <div className="grid grid-cols-1 gap-y-5">
+                {
+                  recentLive?.slice(0, 6).map((item, i) => <RecentLive key={i} item={item} />)
+                }
+            </div>
+          </div>
         </Aside>
 
-        <main className="w-full lg:w-[75%] bg-primary-dark rounded-t-lg">
+        <main className="w-full lg:w-[75%] bg-primary-dark rounded-t-lg pb-7 rounded-b-lg">
           <HeadersNavigartion data={data} handleBack={handleBack} date={formattedDate} />
 
           <HeaderDetail data={data} />
@@ -88,6 +103,7 @@ const DetailLive = () => {
 
             </div>
           )}
+          <GiftList data={data}/>
           
         </main>
       </div>
@@ -108,6 +124,9 @@ const NowLive = ({ showroomLive, idnLive }) => {
     </div>
   )
 }
+
+
+
 
 const HeadersNavigartion = ({ data, handleBack, date }) => {
   return (

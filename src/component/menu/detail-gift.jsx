@@ -77,22 +77,22 @@ export const DetailGift = ({ data }) => {
             <div className="bg-gray-800 rounded-xl pt-3 px-5 pb-5">
                 <h4 className="font-poppins text-lg font-medium tracking-wide">Detail</h4>
                 <div className="grid grid-cols-2 mt-3 gap-y-2">
-                    <h5 className="text-gray-400 font-medium tracking-widest text-xs max-sm:text-xs">Gift</h5>
-                    <p className="text-primary-text font-medium tracking-wider text-xs max-sm:text-xs">
+                    <h5 className="text-gray-400 font-medium tracking-widest text-sm max-sm:text-xs">Gift</h5>
+                    <p className="text-primary-text font-medium tracking-wider text-sm max-sm:text-xs">
                         {data?.total_gifts}G (±Rp {totalRupiah.toLocaleString("id-ID", { minimumFractionDigits: 2 })})
                     </p>
 
-                    <h5 className="text-gray-400 font-medium tracking-widest text-xs max-sm:text-xs">Viewer</h5>
-                    <p className="text-primary-text font-medium max-sm:text-xs lg:text-xs">
+                    <h5 className="text-gray-400 font-medium tracking-widest text-sm max-sm:text-xs">Viewer</h5>
+                    <p className="text-primary-text font-medium max-sm:text-xs lg:text-sm">
                         {data?.live_info.viewers?.num.toLocaleString("id-ID")}
                     </p>
 
-                    <h5 className="text-gray-400 font-medium tracking-widest max-sm:text-xs lg:text-xs">Active Viewer</h5>
-                    <p className="text-primary-text font-medium max-sm:text-xs lg:text-xs">
+                    <h5 className="text-gray-400 font-medium tracking-widest max-sm:text-xs lg:text-sm">Active Viewer</h5>
+                    <p className="text-primary-text font-medium max-sm:text-xs lg:text-sm">
                         {data?.live_info?.viewers?.active}
                     </p>
 
-                    <h5 className="text-gray-400 font-medium tracking-widest max-sm:text-xs lg:text-xs">Comments</h5>
+                    <h5 className="text-gray-400 font-medium tracking-widest max-sm:text-xs lg:text-sm">Comments</h5>
                     <p className="text-primary-text font-medium max-sm:text-xs lg:text-sm">
                         {data?.live_info.comments?.num?.toLocaleString("id-ID")}
                         <span className="text-xs ml-2 text-gray-400 max-sm:text-xs lg:text-[11px]">

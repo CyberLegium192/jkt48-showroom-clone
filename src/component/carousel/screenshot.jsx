@@ -13,10 +13,10 @@ export const Screenshot = ({ data }) => {
                 slidesPerView={1}
                 breakpoints={{
                     320: {
-                        slidesPerView: 2,
+                        slidesPerView: 3,
                     },
                     640: {
-                        slidesPerView: 2,
+                        slidesPerView: 3,
                     },
                     1024: {
                         slidesPerView: 3,
@@ -37,11 +37,13 @@ export const Screenshot = ({ data }) => {
             >
                 {
                     data?.list?.slice(2, 10).map((item, i) =>
-                        <SwiperSlide key={i}>
-                            <img
-                                src={`https://res.cloudinary.com/haymzm4wp/image/upload/${data?.folder}/${item}.${data?.format}`}
-                                alt="picture live" className='w-full h-full rounded-lg object-cover object-center'
-                            />
+                        <SwiperSlide key={i} >
+                            <div className='h-full w-full  rounded-lg overflow-hidden'>
+                                <img
+                                    src={`https://res.cloudinary.com/haymzm4wp/image/upload/${data?.folder}/${item}.${data?.format}`}
+                                    alt="picture live" className='w-full h-full object-cover object-center'
+                                />
+                            </div>
                         </SwiperSlide>
                     )
                 }

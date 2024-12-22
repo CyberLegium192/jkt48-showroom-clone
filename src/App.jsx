@@ -27,7 +27,8 @@ import Schedule from './pages/schedule/schedule'
 import HistoryLive from './pages/historyLive/historyLive'
 import DetailLive from './pages/historyLive/detailLive'
 import { Route, Routes, Navigate } from 'react-router-dom';
-import StreamingRoom from './pages/streaming/streaming'
+import StreamingRoom from './pages/streaming/streamingIdn'
+import StreamingRoomShowroom from './pages/streaming/streamingShowroom'
 import MultiIdn from "./pages/multi-stream/multiIdn"
 
 function App() {
@@ -41,7 +42,8 @@ function App() {
         <Route path='/schedule' element={<Schedule />} />
         <Route path='/history-live' element={<HistoryLive />} />
         <Route path='/detail-live/:nickname/:data_id' element={<DetailLive />} />
-        <Route path='/streaming/:type/:url' element={<StreamingRoom />} />
+        <Route path='/streaming/showroom/:room_key' element={<StreamingRoomShowroom />} />
+        <Route path='/streaming/idn/:room_key' element={<StreamingRoom />} />
         <Route path='/multi-idn' element={<MultiIdn />} />
       </Routes>
     </Sidebar>

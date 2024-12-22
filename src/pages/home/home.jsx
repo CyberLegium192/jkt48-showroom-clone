@@ -21,6 +21,8 @@ import { onLiveShowroom, onLiveIdn } from '../../assets/api/history-live';
 import { SkeletonCardNews } from '../../component/skeletons/news-skeletons';
 import { ScheduleSkeleton } from '../../component/skeletons/schedule-skeletons';
 import { YoutubeSkeletonCard } from '../../component/skeletons/youtubeSkeletons';
+import BussySVG from "../../assets/bussy.svg";
+
 
 export const Home = () => {
   const [newsData, setNewsData] = useState([])
@@ -67,9 +69,6 @@ export const Home = () => {
       setIsLoadingYoutube(false)
     }
     fetchYoutube()
-    // console.log("importing env: ", import.meta.env.VITE_API_URL_SCHEDULE);
-
-
   }, [])
 
 
@@ -81,14 +80,13 @@ export const Home = () => {
 
           <LayoutHome>
             <Headers title='live member' linked={true} icons={<CiStreamOn size={26} />} colors="text-red-600" />
-            <div className='grid grid-cols-5 gap-6 max-sm:grid max-sm:grid-cols-2 '>
-              {
-                onLive?.map((item, i) => <Onlive item={item} key={i} />)
-              }
-              {
-                onLiveIDN?.map((item, i) => <Onlive item={item} key={i} />)
-              }
-            </div>
+            {
+              (onLive && onLive.length > 0) || (onLiveIDN && onLiveIDN.length > 0) ? <OnliveValidate onLive={onLive} onLiveIDN={onLiveIDN} /> :
+                <div className="flex items-center flex-col w-full">
+                  <img src={BussySVG} className="w-56 -mb-4" />
+                  <p className="font-poppins text-sm tracking-wider text-gray-400">Tidak ada live 😭</p>
+                </div>
+            }
           </LayoutHome>
         </div>
 
@@ -134,6 +132,20 @@ export const Home = () => {
 
       </div>
     </>
+  )
+}
+
+
+export const OnliveValidate = ({onLive, onLiveIDN}) => {
+  return (
+    <div className='grid grid-cols-5 gap-6 max-sm:grid max-sm:grid-cols-2 '>
+      {
+        onLive?.map((item, i) => <Onlive item={item} key={i} />)
+      }
+      {
+        onLiveIDN?.map((item, i) => <Onlive item={item} key={i} />)
+      }
+    </div>
   )
 }
 

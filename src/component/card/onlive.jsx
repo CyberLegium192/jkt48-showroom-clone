@@ -26,7 +26,7 @@ export const Onlive = ({ item }) => {
 
 
   return (
-    <Link className='text-white relative lg:w-full lg:h-52 max-sm:w-[100%] max-sm:h-48 overflow-hidden rounded-lg' to={`/streaming/${item.slug ? "idn" : "showroom"}/${encodeURIComponent(item?.streaming_url_list?.[0]?.url || item?.stream_url)}`}>
+    <Link className='text-white relative lg:w-full lg:h-52 max-sm:w-[100%] max-sm:h-48 overflow-hidden rounded-lg' to={`/streaming/${item.slug ? "idn" : "showroom"}/${item.slug ? item.user.username : item.room_url_key}`}>
       <img src={item?.image_square ? item?.image_square : item?.image} className='w-full h-full object-cover' />
 
       <div className="absolute w-full h-full bg-gradient-to-b from-black/30 via-black/50 to-black/80 top-0 left-0">

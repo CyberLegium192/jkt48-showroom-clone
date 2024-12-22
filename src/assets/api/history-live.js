@@ -36,3 +36,8 @@ export const detailLive = async (data_id) => {
     return response.data
 }
 
+export const roomLive = async (room_key) => {
+    const response = await axios.get(`https://api.crstlnz.my.id/api/watch/${room_key}`)
+    return response.data
+}
+

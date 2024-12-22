@@ -27,12 +27,19 @@ const schedule = () => {
         <>
             <LayoutHome>
                 <Headers title='Next Theater' href='/schedule' icons={<FaRegCalendarAlt size={23} />} colors="text-blue-700" linked={true} />
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-3 gap-4 max-sm:grid-cols-1">
                     { isLoading ? Array.from({ length: 3 }, (_, i) => <ScheduleSkeleton key={i} />) :
                         upComingSchedulesTheater?.map((item, i) => <Schedule key={i} item={item} />)
                     }
                 </div>
-
+            </LayoutHome>
+            <LayoutHome>
+                <Headers title='theater sebelumnya' href='/schedule' icons={<FaRegCalendarAlt size={23} />} colors="text-blue-700" linked={true} />
+                <div className="grid grid-cols-3 gap-4 max-sm:grid-cols-1">
+                    { isLoading ? Array.from({ length: 3 }, (_, i) => <ScheduleSkeleton key={i} />) :
+                        scheduleData?.map((item, i) => <Schedule key={i} item={item} />)
+                    }
+                </div>
             </LayoutHome>
         </>
     )
