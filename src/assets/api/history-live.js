@@ -41,3 +41,9 @@ export const roomLive = async (room_key) => {
     return response.data
 }
 
+
+export const giftFans = async(data_id, currentPerpage) => {
+    const response = await axios.get(`https://api.crstlnz.my.id/api/recent/${data_id}/gifts?page=&perpage=${currentPerpage}`)
+    return response.data
+}
+

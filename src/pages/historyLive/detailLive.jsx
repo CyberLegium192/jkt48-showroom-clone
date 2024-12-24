@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
-import { detailLive, onLiveShowroom, onLiveIdn } from '../../assets/api/history-live'
+import { detailLive, onLiveShowroom, onLiveIdn, giftFans } from '../../assets/api/history-live'
 import { Aside } from "../../component/sidebar/aside"
 import { IoArrowBackSharp } from "react-icons/io5";
 import { HeaderDetail } from "../../component/menu/header-detail";
@@ -20,6 +20,7 @@ const DetailLive = () => {
   const [showroomLive, setShowroomLive] = useState([])
   const [idnLive, setIdnLive] = useState([])
   const [recentLive, setRecentLive] = useState([])
+  // const [fansGift, setFansGift] = useState([])
   const { data_id } = useParams()
   const createdAt = data?.created_at ? new Date(data?.created_at) : null;
 
@@ -59,6 +60,7 @@ const DetailLive = () => {
       setIdnLive(response)
     }
     fetchLiveIdn()
+
   }, [data_id])
 
   return (
@@ -104,7 +106,6 @@ const DetailLive = () => {
             </div>
           )}
           <GiftList data={data}/>
-          
         </main>
       </div>
     </>

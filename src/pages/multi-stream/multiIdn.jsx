@@ -71,10 +71,11 @@ const multiIdn = () => {
     <div className='text-white'>
 
       <p>URL Stream yang dipilih:</p>
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-4 gap-4">
       {selectedStreams.map((url, index) => (
         <div key={url} className="flex justify-center items-center">
           <VidoePlayer
+
             videoRef={(el) => {
               if (el) {
                 videoRefs.current[url] = el; // Simpan referensi elemen video berdasarkan URL

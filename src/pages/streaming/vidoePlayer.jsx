@@ -1,14 +1,15 @@
 import IDNLOGO from "../../assets/IDN_Live.png";
+import { lazy } from "react";
 
 
 export const VidoePlayer = ({videoRef, nameMember}) => {
     return (
-        <div className="relative w-full max-sm:w-[80%] flex items-center justify-center overflow-hidden rounded-xl">
+        <div className="relative max-sm:w-[80%] flex items-center justify-center overflow-hidden rounded-xl">
             <video
                 autoPlay
                 ref={videoRef}
                 controls
-                className="w-full h-[60%] rounded-md  shadow-lg "
+                className=" h-[70%] rounded-md  shadow-lg "
                 referrerPolicy="no-referrer"
             />
             {/* Overlay untuk logo */}
